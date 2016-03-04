@@ -1,0 +1,217 @@
+/* 
+    Created on : Jan 7, 2016, 9:17:08 PM
+    Author     : Summer
+*/
+
+
+.content {
+    border-top:1px solid;
+    text-align: left;
+    margin-left:30%;
+    margin-right:30%;
+}
+
+
+/* Header and Footer formatting */
+.naver {
+    color: grey;
+    font-family: "Arial";
+    padding-top:16px;
+padding-bottom:16px;
+margin-left:2px;
+font: 12px Arial;
+list-style-type: none;
+border-bottom: 1px solid #f2b4a3;
+text-align: center; /*set to left, center, or right to align the menu as desired*/
+}
+
+.naver a {
+  display: inline;
+border-bottom: none;
+border-top:none;
+text-decoration: none;
+padding: 11px;
+margin-right: -3px;
+color: #36393f;  
+text-transform: uppercase;
+}
+
+.naver a:hover {
+    background-color: #f6e6e6;
+    text-decoration:none;    
+    color: #36393f;  
+}
+
+.footer {
+    color: #36393f;
+    font-family: "Arial";
+    padding-top:16px;
+    padding-bottom:16px;
+    margin-left:2px;
+    font: 12px Arial;
+    list-style-type: none;
+    text-align: center; /*set to left, center, or right to align the menu as desired*/
+    clear:all;
+}
+
+.footer a {
+    display: inline;
+    border-bottom: none;
+    border-top:none;
+    text-decoration: none;
+    padding: 11px;
+    margin-right: -3px;
+    color: #36393f;
+    text-transform: uppercase;
+}
+
+.footer a:hover {
+    background-color: #f6e6e6;
+    color: #36393f;  
+    text-decoration:none;    
+}
+
+.table clear {
+    border: 1px solid #001963;
+    border-collapse: collapse;
+}
+
+html {
+    background-color: #ffffff; 
+    margin-top: 5%;
+}
+body {
+    text-align: center;
+    margin-top: 5%;
+    width: 760px;
+    margin: 0 auto;
+    background-color: white;
+    border: 1px solid #f6e6e6;
+    color:#36393f;
+}
+header {
+    margin: 0;
+    padding: .5em 2em;
+}
+header h1 {
+    text-align:center;
+    color: #36393f;
+    margin: 0;
+    padding: 0;
+}
+header p {
+    margin: 0;
+    padding: .25em 0 0 0;
+}
+
+
+main {
+    margin: 0;
+    padding: .5em 2em .25em;
+}
+footer {
+    clear: both;
+    margin-top: 1em;
+    padding-right: 1em;
+}
+footer p {
+    text-align: right;
+    font-size: 80%;
+    margin: 1em 0;
+}
+
+h1 {
+    color: #36393f;
+    font-size: 150%;
+    margin: 0;
+    padding: .5em 0 .25em;
+}
+h2 {
+    font-size: 120%;
+    color:  #36393f;
+    margin: 0;
+    padding: .25em 0 .25em ;
+}
+
+p {
+    margin: .5em 0 .5em 0;
+    padding: 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+li {
+    margin: 0;
+    padding: 0;
+}
+
+
+a {
+    color: #5d6a6a;
+    text-decoration:none;
+}
+a:hover {
+    color: #f2b4a3;
+    text-decoration:none;    
+}
+
+table {
+    border: none;
+    border-collapse: collapse;
+}
+td, th {
+    border: 1px dashed #f6e6e6;
+    padding: .2em .5em .2em .5em;
+    text-align: left;
+}
+#no_border {
+    border: 0px;
+}
+#no_border td {
+    border: 0px;
+}
+
+form {
+    margin: 0;
+}
+br {
+    clear: left;
+}
+textarea {
+    font-size: 80%;
+}
+
+.right {
+    text-align: right;
+}
+.error {
+    color: red;
+}
+.message {
+    margin-left: .5em;
+    width: 15em;
+}
+
+#aligned {
+    margin: .5em 0 2em;
+}
+#aligned label {
+    width: 8em;
+    margin-top: .2em;
+    margin-right: 1em;
+    margin-bottom: .5em;
+    float: left;
+}
+#aligned input {
+    float: left;
+}
+#aligned input[text] {
+    width: 15em;
+}
+#aligned .message {
+    margin-left: .5em;
+    width: 15em;
+}
