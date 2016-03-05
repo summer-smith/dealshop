@@ -3,24 +3,28 @@
 ini_set('display_errors', 1);
 
 // Connection to each database
-require('../model/database.php');
+//require('../model/database.php');
 
 
 $action = filter_input(INPUT_POST, 'action');
-if ($action == NULL) {
-    $action = filter_input(INPUT_GET, 'action');
-    if ($action == NULL) {
-        $action = 'search';
-    }
-    
-}
 
-if ($action == 'search'){
-    include('search.php');
-} else if ($action == 'results'){
-    include('results.php');
-} else if ($action == 'itemInfo'){
-    include('itemInfo.php');
-} else if ($action == 'createItem'){
-    include('createItem.php');
+switch ($action){
+    case 'search':
+        include('search.php');
+        break;
+    
+    case 'Search Results':
+       include('results.php');
+        break;
+    
+    case 'Item Info':
+        include('itemInfo.php');
+        break;
+    
+    case 'Create Item':
+        include('createItem.php');
+        break;
+    
+    default:
+        include('search.php');
 } 

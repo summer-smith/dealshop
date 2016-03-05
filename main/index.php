@@ -8,21 +8,41 @@ require('../model/userDB.php');
 
 
 $action = filter_input(INPUT_POST, 'action');
-if ($action == NULL) {
-    $action = filter_input(INPUT_GET, 'action');
-    if ($action == NULL) {
-        $action = 'loginPage';
-    }
-    
-}
 
-if ($action == 'loginPage'){
-    include('login.php');
-} else if ($action == 'home'){
-    include('home.php');
-} else if ($action == 'loginSubmit'){
-    $email = filter_input(INPUT_POST, 'email');
-    if(get_user_by_email($email)){
+
+switch( $action ) {
+    case 'Login Page':
+        include('login.php');
+        break;
+    
+    case 'home':
         include('home.php');
-    }
+        break;
+    
+    case 'loginSubmit':
+        $email = filter_input(INPUT_POST, 'email');
+        if(get_user_by_email($email)){
+            include('home.php');
+        }
+        break;
+    
+    case 'Price Compare':
+        include('priceCompare.php');
+        break;
+    
+    case 'Search':
+        header("Location: ../search");
+        //include('../search');
+        break;
+    
+    case 'View Lists':
+        header("Location: ../shoppingList");
+        break;
+    
+    case 'View Deals':
+        header("Location: ../deals");
+        break;
+    
+    default:
+        include('login.php');
 }

@@ -1,13 +1,12 @@
 <?php include '../view/header.php'; ?>
 <main>
 
-    <h2>Home</h2>
-    <ul>
-        <li><a class="" href="../main/index.php" title="">Price Compare</a></li>
-        <li><a class="" href="" title="">Search</a></li>
-        <li><a class="" href="" title="">Lists</a></li>
-        <li><a class="" href="" title="">Deals</a></li>
-    </ul>
+    <form action="." class="center" method="post">
+        <button type="submit" class="link" name="action" value="Price Compare" >Price Compare</button>
+        <button type="submit" class="link" name="action" value="Search" >Search</button>
+        <button type="submit" class="link" name="action" value="View Lists" >Lists</button>
+        <button type="submit" class="link" name="action" value="View Deals" >Deals</button>        
+    </form>
     
 
 </main>
