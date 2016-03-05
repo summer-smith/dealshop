@@ -3,7 +3,7 @@
 ini_set('display_errors', 1);
 
 // Connection to each database
-require('../model/database.php');
+//require('../model/database.php');
 require('../model/userDB.php');
 
 

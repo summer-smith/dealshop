@@ -5,7 +5,7 @@
 <head>
     <title>DealShop</title>
     <link rel="stylesheet" type="text/css"
-          href="/dealshop/main.css">    
+          href="../view/main.css">    
 </head>
 
 <!-- the body section -->
