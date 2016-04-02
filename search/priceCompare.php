@@ -1,8 +1,8 @@
 <?php include '../view/header.php'; ?>
 <main>
 
-    <h2>Search results</h2>
-    <p style="font-weight:bold;">"<?php echo $searchItem;?>"</p>
+    <h2>Price Compare</h2>
+    <h1><?php echo $compareItem['itemName'];?></h1>
     <!-- List all items in database matching search requirements-->
      <form action="." method="post">
          

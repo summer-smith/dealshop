@@ -1,7 +1,7 @@
 <?php
 //TODO:update connection info
-    $dsn = 'mysql:host=localhost;dbname=ittlech8_tech_support';
-    $username = 'ittlech8_iClient';
+    $dsn = 'mysql:host=localhost;dbname=ittlech8_dealShop';
+    $username = 'ittlech8_user';
     $password = 'BucKet22#';
 
     try {

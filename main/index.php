@@ -3,11 +3,15 @@
 ini_set('display_errors', 1);
 
 // Connection to each database
-//require('../model/database.php');
+require('../model/database.php');
 require('../model/userDB.php');
+require('../model/itemDB.php');
 
 
 $action = filter_input(INPUT_POST, 'action');
+if ($action == NULL){
+    $action = filter_input(INPUT_GET, 'action');
+}
 
 
 switch( $action ) {
@@ -27,12 +31,18 @@ switch( $action ) {
         break;
     
     case 'Price Compare':
+        $itemID = filter_input(INPUT_POST, 'itemID', FILTER_VALIDATE_INT);
+        header("Location: ../search/index.php?action=priceCompare&itemID=".$itemID);
+        break;
+        
+    case 'Price Compare Tab':
+    case 'priceCompareTab':
+        $items = getItems();    
         include('priceCompare.php');
         break;
     
     case 'Search':
         header("Location: ../search");
-        //include('../search');
         break;
     
     case 'View Lists':
@@ -44,5 +54,5 @@ switch( $action ) {
         break;
     
     default:
-        include('login.php');
+        include('home.php');
 }
