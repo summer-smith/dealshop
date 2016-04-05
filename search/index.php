@@ -5,6 +5,7 @@ ini_set('display_errors', 1);
 // Connection to each database
 require('../model/database.php');
 require('../model/itemDB.php');
+require('../model/storeDB.php');
 
 
 $action = filter_input(INPUT_POST, 'action');
@@ -29,17 +30,32 @@ switch ($action){
     case 'Search':
         $searchItemName = filter_input(INPUT_POST, 'searchItem');
         $items = getAllByName($searchItemName);
-        if ($items == NULL){
-            $error = 'No results found.';
+        $foundIn = "items";
+        
+        /*if ($items == NULL || $items == FALSE){ //if no matching items, check for matching brands
+            $items = getItemsByBrand($searchItemName);
+            $foundIn = "brands";
+        }
+        if ($items == NULL || $items == FALSE){ //if no matching items, check for matching stores
+            $items = getItemsByStore($searchItemName);
+            $foundIn = "stores";
+        }*/ //doesn't work - out of time - removing for submission. :) 
+        
+        if ($items == NULL || $items == FALSE){  //if stull null, no matching results in item names, stores, or brands.  
+            $error = 'No results found.'; //give user error message.
             $items = getItems();
             include('search.php');
         } else{
             include('results.php');
         }
         break;
-      
+     
+    case 'itemInfo':
     case 'Item Info':
         $itemID = filter_input(INPUT_POST, 'itemID', FILTER_VALIDATE_INT);
+        if ($itemID == NULL){
+            $itemID = filter_input(INPUT_GET, 'itemID', FILTER_VALIDATE_INT);
+        }
         if ($itemID == NULL || $itemID == FALSE){
             $error = 'Invalid item ID';
             $items = getItems();
@@ -68,6 +84,37 @@ switch ($action){
     
     case 'Create Item':
         include('createItem.php');
+        break;
+    
+    case 'Add Price Form':
+        $itemID = filter_input(INPUT_POST, 'newPriceItemID', FILTER_VALIDATE_INT);
+        if ($itemID== NULL){
+            $itemID = filter_input(INPUT_GET, 'newPriceItemID', FILTER_VALIDATE_INT);
+        }
+        $item = getItemByID($itemID);
+        $stores = getStores();
+        include('addItemPriceForm.php');
+        break;
+        
+    case 'Add Price':
+        $itemID = filter_input(INPUT_POST, 'itemID', FILTER_VALIDATE_INT);
+        if ($itemID== NULL){
+            $itemID = filter_input(INPUT_GET, 'itemID', FILTER_VALIDATE_INT);
+        }
+        $itemName = filter_input(INPUT_POST, 'itemName');
+        $price = filter_input(INPUT_POST, 'itemPrice', FILTER_VALIDATE_INT);
+        $quantity = filter_input(INPUT_POST, 'quantity');
+        $store = filter_input(INPUT_POST, 'storeName');
+        $brand = filter_input(INPUT_POST, 'brandName');
+        
+        if ($price == NULL || $price == FALSE){
+            $priceError = "*Required";
+            header("Location: addItemPriceForm.php?newPriceItemID=".$itemID);
+        } else {
+            addItemPrice($itemID, $itemName, $price, $quantity, $store, $brand);
+            header("Location: ./index.php?action=priceCompare&itemID=".$itemID);
+        }
+        
         break;
     
     //default:

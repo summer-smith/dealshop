@@ -15,19 +15,13 @@ if ($action == NULL){
 $error = NULL;
 
 switch ($action){
-    case 'Add Store':
-        $listID = filter_input(INPUT_POST, 'listID', FILTER_VALIDATE_INT);
-        $storeID = filter_input(INPUT_POST, 'storeID', FILTER_VALIDATE_INT);
-        $storeName = getStoreName($storeID);
-        
-        addStoreToList($listID, $storeName);
-        //Return to the list page
-        //header("Location: ../shoppinglist/index.php?action=editList&listID=".$listID);
+    
     case 'Edit List':
     case 'editList':
         $listID = filter_input(INPUT_POST, 'listID', FILTER_VALIDATE_INT);
+        $listTotal = 0;
         if ($listID == NULL){
-            $action = filter_input(INPUT_GET, 'listID', FILTER_VALIDATE_INT);
+            $listID = filter_input(INPUT_GET, 'listID', FILTER_VALIDATE_INT);
         }
         
         if($listID == NULL){
@@ -36,8 +30,11 @@ switch ($action){
             $listName = getListName($listID);
             $listItems = getListItems($listID);
             $items = array();
+            
             foreach ($listItems as $listItem) :
                 $item = getItemByID($listItem['itemID']);
+                $item['quantity'] = $listItem['quantity'];
+                $listTotal += $item['price'];
                 array_push($items, $item);
             endforeach;
             $storeName = getListStore($listID);
@@ -45,17 +42,36 @@ switch ($action){
         }
         break;
     
+    case 'Edit Name Form':
+        $listID = filter_input(INPUT_POST, 'listID', FILTER_VALIDATE_INT);
+        $listName = getListName($listID);
+        include('editListNameForm.php');
+        break;
        
     case 'Add Item To List':
         $listID = filter_input(INPUT_POST, 'listID', FILTER_VALIDATE_INT);
-        $itemID = filter_input(INPUT_POST, 'itemID', FILTER_VALIDATE_INT);
-        addItemToList($itemID, $listID);
-         
-        $item = getItemByID($itemID);
-        $itemName = $item['itemName'];
+        $addItemID = filter_input(INPUT_POST, 'itemID', FILTER_VALIDATE_INT);
+        $addItem = getItemByID($addItemID);
+        $addItemName = $addItem['itemName'];
         $listName = getListName($listID);
-              
-        $message = "\"".$itemName."\" has been added to ".$listName;
+        $listItems = getListItems($listID);
+        $onList = FALSE;
+        
+        //Verify that item is not already on the list
+        foreach ($listItems as $item ):
+            if ($item['itemID'] == $addItemID){
+                $onList = TRUE;
+            }         
+        endforeach;
+
+        //If not on list, add to list
+        if (!$onList){
+            addItemToList($addItemID, $listID);
+            $message = "\"".$addItemName."\" has been added to ".$listName;
+        } else {
+            $message = "\"".$addItemName."\" is already listed in ".$listName;
+        }
+ 
         include('successPage.php');
         break;
     
@@ -64,7 +80,7 @@ switch ($action){
         if ($itemID == NULL){
             $itemID = filter_input(INPUT_GET, 'itemID', FILTER_VALIDATE_INT);
         }
-        if ($itemID != NULL){
+        if ($itemID != NULL && $itemID != FALSE){
             $item = getItemByID($itemID);
             $lists = getLists();
         } else {
@@ -99,6 +115,15 @@ switch ($action){
     
     case 'Edit Name':
         $listID = filter_input(INPUT_POST, 'listID', FILTER_VALIDATE_INT);
+        $listName = filter_input(INPUT_POST, 'listName');
+        if ($listName == NULL || $listName == FALSE){
+            $error = "ERROR: List name cannot be blank.";
+             include('editListNameForm.php');
+        }else{
+            updateListName($listID, $listName);
+            header("Location: ./index.php?action=editList&listID=".$listID);
+        }
+        
         break;
     
     case 'Submit New Name':
@@ -125,7 +150,20 @@ switch ($action){
         $storeName = filter_input(INPUT_POST, 'storeName');
         $listName = filter_input(INPUT_POST, 'listName');
          
-            createList($listName, $storeName);       
+        createList($listName, $storeName);       
+        header("Location: ./index.php?action=List+Page");
+        break;
+            
+    case 'Add Store':
+        $listID = filter_input(INPUT_POST, 'listID', FILTER_VALIDATE_INT);
+        $storeID = filter_input(INPUT_POST, 'storeID', FILTER_VALIDATE_INT);
+        $storeName = getStoreName($storeID);
+        
+        addStoreToList($listID, $storeName);
+        //Return to the list page
+        header("Location: ../shoppinglist/index.php?action=editList&listID=".$listID);
+        break;
+            
     case 'List Page':
     default:
         $lists = getLists();

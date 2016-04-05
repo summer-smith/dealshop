@@ -53,6 +53,23 @@ switch( $action ) {
         header("Location: ../deals");
         break;
     
+    case 'Item Info':
+        $itemID = filter_input(INPUT_POST, 'itemID', FILTER_VALIDATE_INT);
+        if ($itemID == NULL || $itemID == FALSE){
+            $error = 'Invalid item ID';
+            $items = getItems();
+            include('priceCompare.php');
+        } else{
+            $item = getItemByID($itemID);
+            header("Location: ../search/index.php?action=itemInfo&itemID=".$itemID);
+        }
+        break;
+        
+    case 'Add to List':
+        $itemID = filter_input(INPUT_POST, 'itemID', FILTER_VALIDATE_INT);
+        header("Location: ../shoppingList/index.php?action=addItem&itemID=".$itemID);
+        break;    
+    
     default:
         include('home.php');
 }

@@ -5,7 +5,7 @@
  
         
     <!-- List all items in database matching search requirements-->
-     <form action="." method="post">
+     
          
         <table class='itemList'>
             <tr class="divide">
@@ -16,6 +16,7 @@
                 <th></th>
             </tr>
             <?php foreach ($items as $item) : ?>
+            <form action="." method="post">
             <input type="hidden" name="itemID" value="<?php echo $item['itemID'];?>"
             <tr>
                 <td></td>
@@ -54,8 +55,8 @@
                     <button type="submit" class="bttn" name="action" value="Add to List" >Add to List</button>
                 </td>
             </tr>
+            </form>
             <?php endforeach; ?>
         </table>
-     </form>
 </main>
 <?php include '../view/footer.php'; ?>

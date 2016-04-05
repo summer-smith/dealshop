@@ -104,3 +104,15 @@ function addStoreToList($listID, $storeName){
     $statement->execute();
     $statement->closeCursor();      
 }
+
+function updateListName($listID, $listName){
+    global $db;
+    $query = 'UPDATE shoppinglist
+              SET listName = :listName
+              WHERE listID = :listID';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':listID', $listID);
+    $statement->bindValue(':listName', $listName);
+    $statement->execute();
+    $statement->closeCursor();    
+}

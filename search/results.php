@@ -2,7 +2,7 @@
 <main>
 
     <h2>Search results</h2>
-    <p style="font-weight:bold;">"<?php echo $searchItem;?>"</p>
+    <p style="font-weight:bold;">Match for "<?php echo $searchItemName;?>" found in <?php echo $foundIn;?></p>
     <!-- List all items in database matching search requirements-->
      <form action="." method="post">
          

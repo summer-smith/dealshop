@@ -3,17 +3,40 @@
 function getItems(){
     global $db;
     $query = 'SELECT * FROM item
-            GROUP BY brand
+             GROUP BY itemName
              ORDER BY itemName';
     $statement = $db->prepare($query);
     $statement->execute();
     return $statement;    
 }
 
+function getItemsByStore($storeName){
+    global $db;
+    $query = 'SELECT * FROM item
+             WHERE store = :store
+             ORDER BY itemName';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':store', $storeName);
+    $statement->execute();
+    return $statement;    
+}
+
+function getItemsByBrand($brandName){
+    global $db;
+    $query = 'SELECT * FROM item
+            WHERE brand = :brand
+             ORDER BY itemName';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':brand', $brandName);
+    $statement->execute();
+    return $statement;  
+}
+
 function getAllByName($itemName){
     global $db;
     $query = 'SELECT * FROM item
-              WHERE itemName= :itemName';    
+              WHERE itemName= :itemName
+              ORDER BY price';    //Put the lowest price first
     $statement = $db->prepare($query);
     $statement->bindValue(':itemName', $itemName);
     $statement->execute();   
@@ -71,4 +94,21 @@ function getItemName($itemID){
     $statement->closeCursor();    
     $item_name = $item['itemName'];
     return $item_name;
+}
+
+function addItemPrice($itemID, $itemName, $itemPrice, $quantity, $store, $brand ){
+    global $db;
+    $query = 'INSERT INTO items
+                (itemName, itemID, brand, price, quantity, store)
+              VALUES
+                (:itemName, :itemID, :brand, :price, :quantity, :store)';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':itemName', $itemName);
+    $statement->bindValue(':itemID', $itemID);
+    $statement->bindValue(':brand', $brand);
+    $statement->bindValue(':price', $itemPrice);
+    $statement->bindValue(':quantity', $quantity);
+    $statement->bindValue(':store', $store);
+    $statement->execute();
+    $statement->closeCursor(); 
 }

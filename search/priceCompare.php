@@ -15,7 +15,7 @@
                 <th></th>
             </tr>
             <?php foreach ($items as $item) : ?>
-            <input type="hidden" name="itemID" value="<?php echo $item['itemID'];?>"
+            <input type="hidden" name="itemID" value="<?php echo $item['itemID'];?>" >
             <tr>
                 <td></td>
                 <td></td>
@@ -41,7 +41,7 @@
                     <?php echo $item['store']; ?>
                 </td>
                 <td>
-                    <button type="submit" class="bttn" name="action" value="Price Compare" >Price Compare</button>
+                    <button type="submit" class="bttn" name="action" value="Add to List" >Add to List</button>
                 </td>
             </tr>
             <tr class="divide">
@@ -50,13 +50,17 @@
                 <td></td>
                 <td></td>
                 <td>
-                    <button type="submit" class="bttn" name="action" value="Add to List" >Add to List</button>
+                  
                 </td>
             </tr>
             <?php endforeach; ?>
         </table>
      </form>
-    
+    <br><br>
+    <form>
+        <input type="hidden" name="newPriceItemID" value="<?php echo $compareItemID;?>" >
+        <button type="submit" class="link" name="action" value="Add Price Form" >Add New Price</button>  
+    </form>
 
 </main>
 <?php include '../view/footer.php'; ?>

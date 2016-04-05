@@ -4,7 +4,6 @@
      echo $error; 
      }//endif ?>
     
-    <p>Edit Shopping List</p>
     <form action="." method="post">
        <input type="hidden" name="listID" value="<?php echo $listID;?>">  
     <h2><?php echo $listName; ?></h2>
@@ -13,7 +12,7 @@
             <button type="submit" class="bttn2" name="action" value="Delete List" >Delete List</button>
         </li>
         <li>
-            <button type="submit" class="bttn2" name="action" value="Edit Name" >Edit Name</button>
+            <button type="submit" class="bttn2" name="action" value="Edit Name Form" >Edit Name</button>
         </li>
         <li>
             <button type="submit" class="bttn2" name="action" value="Item Search" >Add Items</button>
@@ -34,6 +33,7 @@
     <table class='itemList'>
         <tr class="divide">
             <th>Item</th>
+            <th></th>
             <th>Brand</th>
             <th>Price</th>
             <th></th>
@@ -47,13 +47,18 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
                 <td>
-                    <button type="submit" class="bttn" name="action" value="Edit" >Edit</button>
                 </td>
             </tr>
             <tr>
                 <td>
                     <?php echo $item['itemName']; ?>
+                </td>
+                <td>
+                    <!--<button type="" class="bttn" name="action" value="Decrease Quantity" > - </button>
+                    <input value="<?php echo $item['quantity']; ?>" name="newQuantity" style="width:20px;">
+                    <button type="" class="bttn" name="action" value="Increase Quantity" >+</button> -->
                 </td>
                 <td>
                     <?php echo $item['brand']; ?>  
@@ -69,18 +74,27 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
                 <td>
                     <button type="submit" class="bttn" name="action" value="Remove Item" >Remove</button>
                 </td>
             </tr>
         </form>
         <?php endforeach; ?>
+       
+        <tr>
+            <td><td>
+            <td></td>
+            <td> <br>List total:</td>
+            <td> <br>$<?php echo $listTotal; ?></td>
+        </tr>
     </table>
 
      <?php } else { ?>
      <p style="font-style: italic">No Items in List</p>
      <?php } ?>
      
+     <br><br>
      <form>
          <button type="submit" name="action" class="link" value="List Page">Back to Lists</button>
      </form>

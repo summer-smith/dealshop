@@ -4,6 +4,7 @@
 <!-- the head section -->
 <head>
     <title>DealShop</title>
+    <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css"
           href="../view/main.css">    
 </head>
