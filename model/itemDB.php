@@ -72,7 +72,7 @@ function getItemByName($itemName){
 //unused functions
 function getItemID($itemName) {
     global $db;
-    $query = 'SELECT * FROM items
+    $query = 'SELECT * FROM item
               WHERE itemName= :itemName';    
     $statement = $db->prepare($query);
     $statement->bindValue(':itemName', $itemName);
@@ -85,7 +85,7 @@ function getItemID($itemName) {
 
 function getItemName($itemID){
     global $db;
-    $query = 'SELECT * FROM items
+    $query = 'SELECT * FROM item
               WHERE itemID= :itemID';    
     $statement = $db->prepare($query);
     $statement->bindValue(':itemID', $itemID);
@@ -96,19 +96,25 @@ function getItemName($itemID){
     return $item_name;
 }
 
-function addItemPrice($itemID, $itemName, $itemPrice, $quantity, $store, $brand ){
+function addItemPrice($itemName, $itemPrice, $quantity, $store, $brand ){
     global $db;
-    $query = 'INSERT INTO items
-                (itemName, itemID, brand, price, quantity, store)
+    
+    if ($quantity == FALSE){$quantity = NULL;}
+    if ($store == FALSE) {$store = NULL;}
+    if ($brand == FALSE) {$brand = NULL;}
+    
+    $query = 'INSERT INTO item
+                (itemName, brand, price, quantity, store)
               VALUES
-                (:itemName, :itemID, :brand, :price, :quantity, :store)';
+                (:itemName, :brand, :price, :quantity, :store)';
     $statement = $db->prepare($query);
     $statement->bindValue(':itemName', $itemName);
-    $statement->bindValue(':itemID', $itemID);
     $statement->bindValue(':brand', $brand);
     $statement->bindValue(':price', $itemPrice);
     $statement->bindValue(':quantity', $quantity);
     $statement->bindValue(':store', $store);
     $statement->execute();
     $statement->closeCursor(); 
+    
 }
+

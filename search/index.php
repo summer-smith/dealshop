@@ -93,28 +93,28 @@ switch ($action){
         }
         $item = getItemByID($itemID);
         $stores = getStores();
+        
         include('addItemPriceForm.php');
         break;
         
     case 'Add Price':
         $itemID = filter_input(INPUT_POST, 'itemID', FILTER_VALIDATE_INT);
-        if ($itemID== NULL){
-            $itemID = filter_input(INPUT_GET, 'itemID', FILTER_VALIDATE_INT);
-        }
-        $itemName = filter_input(INPUT_POST, 'itemName');
-        $price = filter_input(INPUT_POST, 'itemPrice', FILTER_VALIDATE_INT);
+        $price = filter_input(INPUT_POST, 'itemPrice', FILTER_VALIDATE_FLOAT);
         $quantity = filter_input(INPUT_POST, 'quantity');
         $store = filter_input(INPUT_POST, 'storeName');
         $brand = filter_input(INPUT_POST, 'brandName');
+           
+        $item = getItemByID($itemID);
+        $stores = getStores();
         
         if ($price == NULL || $price == FALSE){
-            $priceError = "*Required";
-            header("Location: addItemPriceForm.php?newPriceItemID=".$itemID);
+            $error = "Price cannot be blank.";
+            include('addItemPriceForm.php');
+            break;
         } else {
-            addItemPrice($itemID, $itemName, $price, $quantity, $store, $brand);
-            header("Location: ./index.php?action=priceCompare&itemID=".$itemID);
+            addItemPrice($item['itemName'], $price, $quantity, $store, $brand);
+            header("Location: ./index.php?action=priceCompare&itemID=".$itemID);   
         }
-        
         break;
     
     //default:

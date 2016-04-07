@@ -4,15 +4,17 @@
     <h2>Enter Item Price</h2>
     <p style="font-weight:bold;">"<?php echo $item['itemName'];?>"</p>
     
+    <?php if (!empty($error)) { ?>
+            <p class="error"><?php echo $error; ?></p>
+    <?php } // end if ?>
+    
     <form action="index.php" method="post" id="createListForm" class="userIn">
         <input type="hidden" name="itemID" value="<?php echo $item['itemID']; ?>">
         <input type="hidden" name="itemName" value="<?php echo $item['itemName']; ?>">
                
         <label>Item Price:  $</label>
         <input type="text" name="itemPrice" style="width:50px;" />
-        <?php if (!empty($priceError)) { ?>
-            <p class="error"><?php echo $error; ?></p>
-        <?php } // end if ?>
+        
         <br><br>
         
         <label>Quantity: </label>
@@ -37,7 +39,8 @@
         <br><br><br>
         
         <label> </label>     
-        <button type="submit" class="link" name="action" value="Add Price">Add</button>
+        <button type="submit" class="bttn2" name="action" value="Add Price">Add</button>
+        <button type="submit" class="bttn2" name="action" value="Price Compare">Cancel</button>
         
     </form>  
     
